@@ -45,9 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-table.h
-table.c
-suggest_test.exe.stackdump
 *.stackdump
 *.exe
 *.o
