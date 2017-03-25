@@ -1,0 +1,33 @@
+CC = gcc
+CFLAGS = -g -Wall
+
+PROG = suggest_test
+HDRS = engine.h
+SRCS = test.c engine.c
+
+OBJDIR = object
+OBJS = $(OBJDIR)/test.o $(OBJDIR)/engine.o $(OBJDIR)/levenshtein.o
+
+# compiling rules
+$(OBJDIR)/levenshtein.o:
+	$(MAKE) -C levenshtein.c
+	cp levenshtein.c/levenshtein.o $(OBJDIR)
+
+# WARNING: *must* have a tab before each definition
+$(PROG): $(OBJS) $(OBJDIR)
+	$(CC) $(CFLAGS) $(OBJS) -o $(PROG)
+
+$(OBJDIR)/engine.o: engine.c $(HDRS) $(OBJDIR)
+	$(CC) $(CFLAGS) -c engine.c -o $(OBJDIR)/engine.o
+
+$(OBJDIR)/test.o: test.c $(HDRS) $(OBJDIR)
+	$(CC) $(CFLAGS) -c test.c -o $(OBJDIR)/test.o
+
+$(OBJDIR):
+	mkdir $(OBJDIR)
+
+clean:
+	rm -f $(PROG) $(OBJS)
+
+
+
